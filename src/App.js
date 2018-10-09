@@ -16,13 +16,10 @@ export default class App extends Component {
     this.performSearch();
   }
 
-  handleClick(value, direction) {
-    console.log(value, direction);
+  sortStars(direction) {
+  
     const orderDirection = (direction === 'asc' || direction === 'desc') ? direction: 'Error - Thats not right';
     let repos;
-
-    console.log(this.state.repos[0]);
-    
 
     if(orderDirection === 'asc'){
       repos = this.state.repos.sort((a, b) => parseFloat(a.stargazers_count) - parseFloat(b.stargazers_count));
@@ -31,7 +28,23 @@ export default class App extends Component {
       repos = this.state.repos.sort((a, b) => parseFloat(b.stargazers_count) - parseFloat(a.stargazers_count));
     }
     
+    this.setState({
+      repos: repos
+    });
+  }
 
+  sortForks(direction) {
+  
+    const orderDirection = (direction === 'asc' || direction === 'desc') ? direction: 'Error - Thats not right';
+    let repos;
+
+    if(orderDirection === 'asc'){
+      repos = this.state.repos.sort((a, b) => parseFloat(a.forks) - parseFloat(b.forks));
+    }
+    else if (orderDirection === 'desc') {
+      repos = this.state.repos.sort((a, b) => parseFloat(b.forks) - parseFloat(a.forks));
+    }
+    
     this.setState({
       repos: repos
     });
@@ -65,8 +78,11 @@ export default class App extends Component {
           </div>
         </div>
 
-        <button onClick={() => this.handleClick('stargazers_count', 'desc')}>Desc</button>
-        <button onClick={() => this.handleClick('stargazers_count', 'asc')}>Asc</button>
+        <button onClick={() => this.sortStars('desc')}>Stars Desc</button>
+        <button onClick={() => this.sortStars('asc')}>Stars Asc</button>
+
+        <button onClick={() => this.sortForks('desc')}>Forks Desc</button>
+        <button onClick={() => this.sortForks('asc')}>Forks Asc</button>
 
         <div className="main-content">
           {
