@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SearchForm from './components/search';
-import RepoList from './components/repoList';
+import SearchForm from './search';
+import RepoList from './repoList';
 
 export default class App extends Component {
 

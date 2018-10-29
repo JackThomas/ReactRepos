@@ -1,0 +1,40 @@
+.component {
+	width: 100%;
+	max-width: 540px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: 15px;
+	padding-left: 15px;
+
+	@media (min-width: 768px) {
+		max-width: 720px;
+	}
+
+	@media (min-width: 992px) {
+		max-width: 960px;
+	}
+
+	@media (min-width: 1200px) {
+		max-width: 1140px;
+	}
+}
+
+.repo-list {
+	display: flex;
+	flex-wrap: wrap;
+	margin-right: -15px;
+	margin-left: -15px;
+}
+
+.repo-item {
+	flex: 0 0 25%;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 25%;
+	padding-right: 15px;
+	padding-left: 15px;
+
+	.repo-item__image {
+		width: 100%;
+	}
+}
