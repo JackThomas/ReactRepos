@@ -25,7 +25,6 @@ export default class SearchForm extends Component {
                     name="search"
                     ref={(input) => this.query = input}
                     placeholder="Search..." />
-
             </form>
         );
     }

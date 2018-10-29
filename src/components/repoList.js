@@ -1,6 +1,5 @@
 import React from 'react';
 import Repo from './repo';
-import NoRepos from './noRepos';
 
 const RepoList = props => {
 
@@ -17,13 +16,17 @@ const RepoList = props => {
             key={repo.id}
         />);
     } else {
-        repos = <NoRepos />
+        repos = <div className='no-repos'>
+                    <h3>Sorry, no Repos match your search.</h3>
+                </div>
     }
 
     return (
-        <ul className="repo-list">
-            {repos}
-        </ul>
+        <div className="component">
+            <div className="repo-list">
+                {repos}
+            </div>
+        </div>
     );
 }
 
