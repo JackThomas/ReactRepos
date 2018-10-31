@@ -83,27 +83,27 @@ export default class RepoList extends Component {
         
         return (
             
-        <div className="component">
+            <div className="component">
 
-            <p>
-                {this.props.searchTerm}
-            </p>
-            <p>
-                {this.props.filterType} - {this.props.filterOrder}
-            </p>
-            <p>
-                {this.state.repoTotalCount}
-            </p>
-            <div className="repo-list">
-                
-                {
-                    (this.state.loading)
-                    ? <p>Loading...</p>
-                    : repos
-                }
+                <p>
+                    {this.props.searchTerm}
+                </p>
+                <p>
+                    {this.props.filterType} - {this.props.filterOrder}
+                </p>
+                <p>
+                    {this.state.repoTotalCount}
+                </p>
+                <div className="repo-list">
+                    
+                    {
+                        (this.state.loading)
+                        ? <p>Loading...</p>
+                        : repos
+                    }
 
+                </div>
             </div>
-        </div>
 
         )
     }
