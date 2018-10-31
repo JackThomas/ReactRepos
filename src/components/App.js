@@ -10,12 +10,14 @@ export default class App extends Component {
     this.state = {
       repos: [],
       loading: true,
-      filterType: 'stars-desc',
+      filterType: 'forks',
+      filterOrder: 'desc',
       searchTerm: 'web'
     };
     
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleFilter = this.handleFilter.bind(this);
+    this.handleFilterType = this.handleFilterType.bind(this);
+    this.handleFilterOrder = this.handleFilterOrder.bind(this);
 
   }
 
@@ -24,15 +26,19 @@ export default class App extends Component {
     this.setState({ searchTerm: searchUpdate });
   }
 
-  handleFilter(filterUpdate) {
+  handleFilterType(filterUpdate) {
     this.setState({ filterType: filterUpdate });
+  }
+
+  handleFilterOrder(filterUpdate) {
+    this.setState({ filterOrder: filterUpdate });
   }
 
   render() {
     return (
       <div>
-        <Nav search={this.handleSearch} filter={this.handleFilter} />
-        <RepoList searchTerm={this.state.searchTerm} filterType={this.state.filterType} />
+        <Nav search={this.handleSearch} filterType={this.handleFilterType} filterOrder={this.handleFilterOrder} />
+        <RepoList searchTerm={this.state.searchTerm} filterType={this.state.filterType} filterOrder={this.state.filterOrder} />
       </div>
     );
   }

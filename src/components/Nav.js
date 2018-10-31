@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 
 export default class Nav extends Component {
 
-  filterChange(filterType){
-    this.props.filter(filterType);
+  filterChange(filterType, filterOrder){
+    this.props.filterType(filterType);
+    this.props.filterOrder(filterOrder);
   }
 
   handleSubmit = e => {
@@ -29,11 +30,11 @@ export default class Nav extends Component {
           </div>
         </div>
 
-        <button onClick={this.filterChange.bind(this, 'stars-desc')}>Stars Desc</button>
-        <button onClick={this.filterChange.bind(this, 'stars-asc')}>Stars Asc</button>
+        <button onClick={this.filterChange.bind(this, 'stars', 'desc')}>Stars Desc</button>
+        <button onClick={this.filterChange.bind(this, 'stars', 'asc')}>Stars Asc</button>
 
-        <button onClick={this.filterChange.bind(this, 'forks-desc')}>Forks Desc</button>
-        <button onClick={this.filterChange.bind(this, 'forks-asc')}>Forks Asc</button>
+        <button onClick={this.filterChange.bind(this, 'forks', 'desc')}>Forks Desc</button>
+        <button onClick={this.filterChange.bind(this, 'forks', 'asc')}>Forks Asc</button>
 
       </div>
     );
