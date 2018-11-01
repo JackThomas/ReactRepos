@@ -1,33 +1,35 @@
 import React, { Component } from 'react';
 import RepoItem from './RepoItem';
+import Pagination from './Pagination';
 
 export default class RepoList extends Component {
 
     constructor() {
         super();
         this.state = {
+            initialSearch: true,
             searchTerm: '',
             repos: [],
             loading: true,
             repoTotalCount: 0,
-            currentPage: null,
-            pageCount: null,
+            currentPage: 1,
+            perPage: 20,
             filterType: '',
-            filterOrder: '',
-            pageNumber: 1
-
+            filterOrder: ''
         };
+
+        this.handlePagination = this.handlePagination.bind(this);
+
     }
 
-    performSearch(query, filterType, filterOrder) {
-        fetch(`https://api.github.com/search/repositories?q=${query}&page=${this.state.pageNumber}&per_page=20&sort=${filterType}&order=${filterOrder}`)
+    performSearch(query, filterType, filterOrder, pageNumber) {
+        fetch(`https://api.github.com/search/repositories?q=${query}&page=${pageNumber}&per_page=${this.state.perPage}&sort=${filterType}&order=${filterOrder}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data.total_count);
-                console.log(`https://api.github.com/search/repositories?q=${query}&page=${this.state.pageNumber}&per_page=20&sort=${filterType}&order=${filterOrder}`);
+                console.log(`https://api.github.com/search/repositories?q=${query}&page=${pageNumber}&per_page=${this.state.perPage}&sort=${filterType}&order=${filterOrder}`);
                 
-                // return data.items;
                 this.setState({ 
+                    initialSearch: false, 
                     loading: false,
                     repos: data.items,
                     repoTotalCount: data.total_count
@@ -37,29 +39,35 @@ export default class RepoList extends Component {
             console.log('Error fetching and parsing data', error);
         }); 
     }
+
+    handlePagination(currentPage) {
+        this.setState({ loading: true, currentPage: currentPage });
+        this.performSearch(this.props.searchTerm, this.state.filterType, this.state.filterOrder, currentPage);
+    }
     
     componentDidMount() {
         this.setState({ filterType: this.props.filterType, filterOrder: this.props.filterOrder, });   
-        this.performSearch(this.props.searchTerm);
-        
+        this.setState({ loading: false, initialSearch: true });
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.searchTerm !== this.state.searchTerm) {
-            this.setState({ searchTerm: nextProps.searchTerm, loading: true, repos: [] });   
-            this.performSearch(nextProps.searchTerm, this.state.filterType, this.state.filterOrder)
+            this.setState({ initialSearch: false, searchTerm: nextProps.searchTerm, loading: true, repos: [] });   
+            this.performSearch(nextProps.searchTerm, this.state.filterType, this.state.filterOrder, this.state.currentPage);
         }
 
         if (nextProps.filterType !== this.state.filterType || nextProps.filterOrder !== this.state.filterOrder) {
-            this.setState({ filterType: nextProps.filterType, filterOrder: nextProps.filterOrder, loading: true, repos: []});   
-            this.performSearch(this.props.searchTerm, nextProps.filterType, nextProps.filterOrder)
+            this.setState({ initialSearch: false, filterType: nextProps.filterType, filterOrder: nextProps.filterOrder, loading: true, repos: []});   
+            this.performSearch(this.props.searchTerm, nextProps.filterType, nextProps.filterOrder, this.state.currentPage);
         }
     }
 
     render() {
         let repos;
 
-        if (this.state.repos) {
+        if(this.state.initialSearch === true) {
+            repos = <div className='repo-message'><h3>Please enter a search</h3></div>
+        } else if (this.state.repos) {
             repos = this.state.repos.map(repo => 
                 <RepoItem
                     name={repo.name}
@@ -70,8 +78,6 @@ export default class RepoList extends Component {
                     owner_avatar={repo.owner.avatar_url}
                     key={repo.id}
                 />);
-        } else if(this.props.searchTerm === '') {
-            repos = <div className='repo-message'><h3>Please enter a search</h3></div>
         } else {
             repos = <div className='repo-message'><h3>Sorry, no repos match '{this.props.searchTerm}'.</h3></div>
         }
@@ -99,10 +105,8 @@ export default class RepoList extends Component {
                         : repos
                     }
 
-                    {
-                        (this.state.repoTotalCount > 20)
-                        ? <p>pagination</p>
-                        : ''
+                    {this.state.repoTotalCount > 20 &&
+                        <Pagination currentPage={this.handlePagination} perPage={this.state.perPage} />
                     }
 
                 </div>
@@ -111,3 +115,5 @@ export default class RepoList extends Component {
         )
     }
 }
+
+
