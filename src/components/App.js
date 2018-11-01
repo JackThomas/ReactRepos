@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import SearchForm from './search';
 import Nav from './Nav';
-import RepoList from './repoList';
+import RepoList from './RepoList';
 
 export default class App extends Component {
 
@@ -10,9 +10,9 @@ export default class App extends Component {
     this.state = {
       repos: [],
       loading: true,
-      filterType: 'forks',
-      filterOrder: 'desc',
-      searchTerm: 'web'
+      filterType: '',
+      filterOrder: '',
+      searchTerm: ''
     };
     
     this.handleSearch = this.handleSearch.bind(this);
@@ -20,7 +20,6 @@ export default class App extends Component {
     this.handleFilterOrder = this.handleFilterOrder.bind(this);
 
   }
-
 
   handleSearch(searchUpdate) {
     this.setState({ searchTerm: searchUpdate });

@@ -10,9 +10,13 @@
 // ---------
 
 @import 'base/reset';
+@import 'base/typography';
+@import 'base/layout';
 
 
 // Components
 // ---------
 
 @import 'components/repo-list';
+@import 'components/repo-item';
+@import 'components/nav';

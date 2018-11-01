@@ -1,40 +1,32 @@
-.component {
-	width: 100%;
-	max-width: 540px;
-	margin-right: auto;
-	margin-left: auto;
-	padding-right: 15px;
-	padding-left: 15px;
+.repo-search-info {
+	display: flex;
+	justify-content: space-between;
+	padding: 20px 0;
 
-	@media (min-width: 768px) {
-		max-width: 720px;
+	p {
+		font-size: 12px;
 	}
 
-	@media (min-width: 992px) {
-		max-width: 960px;
-	}
-
-	@media (min-width: 1200px) {
-		max-width: 1140px;
+	span {
+		opacity: 0.6;
 	}
 }
 
 .repo-list {
 	display: flex;
 	flex-wrap: wrap;
+	margin: 30px 0 50px 0;
 	margin-right: -15px;
 	margin-left: -15px;
 }
 
-.repo-item {
-	flex: 0 0 25%;
+.repo-message {
+	display: flex;
+	flex: 0 0 100%;
+	justify-content: center;
 	box-sizing: border-box;
 	width: 100%;
-	max-width: 25%;
+	max-width: 100%;
 	padding-right: 15px;
 	padding-left: 15px;
-
-	.repo-item__image {
-		width: 100%;
-	}
 }

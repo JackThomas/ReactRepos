@@ -1,0 +1,81 @@
+.navigation {
+	padding: 30px 0 0 0;
+	background: lighten($github-black, 5%);
+}
+
+.navigation__title {
+	font-size: 22px;
+	margin-bottom: 30px;
+	color: #ffffff;
+}
+
+.navigation__controls-wrapper {
+	padding: 20px 0;
+	background: $github-black;
+}
+
+.navigation__controls {
+	display: flex;
+	justify-content: space-between;
+
+	.navigation__search-form {
+		input[type='text'] {
+			padding: 8px 10px;
+			transition: box-shadow 0.3s ease-in-out;
+			color: #000000;
+			border: 0;
+			border-radius: 3px 0 0 3px;
+			outline: none;
+			background: lighten($github-black, 50%);
+
+			&:focus {
+				box-shadow: 0 0 0 2px rgba(255,255,255,1);
+			}
+
+			&::-webkit-input-placeholder {
+				color: #000000;
+			}
+        }
+        
+		input[type='submit'] {
+			padding: 8px 15px;
+			transition: background 0.3s ease-in-out;
+			color: #ffffff;
+			border: 0;
+			border-radius: 0 3px 3px 0;
+			outline: none;
+			background: lighten($github-black, 10%);
+
+			&:hover {
+				background: lighten($github-black, 20%);
+			}
+		}
+	}
+
+	.navigation__button-wrap {
+		button {
+			margin-left: 15px;
+			padding: 8px 10px;
+			cursor: pointer;
+			transition: box-shadow 0.3s ease-in-out, background 0.3s ease-in-out;
+			color: #ffffff;
+			border: 0;
+			border-radius: 3px;
+			outline: none;
+			background: transparent;
+
+			&:hover {
+				background: lighten($github-black, 10%);
+			}
+
+			&:focus {
+				background: lighten($github-black, 10%);
+				box-shadow: 0 0 0 2px rgba(255,255,255,1);
+			}
+
+			&.active {
+				background: lighten($github-black, 15%);
+			}
+		}
+	}
+}
