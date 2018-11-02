@@ -103,7 +103,7 @@ export default class RepoList extends Component {
                         : repos
                     }
 
-                    {this.state.repoTotalCount > 20 &&
+                    {this.state.repoTotalCount > this.state.perPage && this.state.loading === false &&
                         <Pagination totalItems={this.state.repoTotalCount} currentPage={this.handlePagination} perPage={this.state.perPage} />
                     } 
 
