@@ -1,0 +1,32 @@
+.repo-search-info {
+	display: flex;
+	justify-content: space-between;
+	padding: 20px 0;
+
+	p {
+		font-size: 12px;
+	}
+
+	span {
+		opacity: 0.6;
+	}
+}
+
+.repo-list {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 30px 0 50px 0;
+	margin-right: -15px;
+	margin-left: -15px;
+}
+
+.repo-message {
+	display: flex;
+	flex: 0 0 100%;
+	justify-content: center;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 100%;
+	padding-right: 15px;
+	padding-left: 15px;
+}
