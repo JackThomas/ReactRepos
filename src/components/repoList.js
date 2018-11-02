@@ -26,8 +26,6 @@ export default class RepoList extends Component {
         fetch(`https://api.github.com/search/repositories?q=${query}&page=${pageNumber}&per_page=${this.state.perPage}&sort=${filterType}&order=${filterOrder}`)
             .then(response => response.json())
             .then(data => {
-                console.log(`https://api.github.com/search/repositories?q=${query}&page=${pageNumber}&per_page=${this.state.perPage}&sort=${filterType}&order=${filterOrder}`);
-                
                 this.setState({ 
                     initialSearch: false, 
                     loading: false,
@@ -40,19 +38,19 @@ export default class RepoList extends Component {
         }); 
     }
 
-    handlePagination(currentPage) {
-        this.setState({ loading: true, currentPage: currentPage });
-        this.performSearch(this.props.searchTerm, this.state.filterType, this.state.filterOrder, currentPage);
+    handlePagination(pageUpdate) {
+        this.setState({ loading: true, currentPage: pageUpdate });
+        this.performSearch(this.props.searchTerm, this.state.filterType, this.state.filterOrder, pageUpdate);
     }
     
     componentDidMount() {
-        this.setState({ filterType: this.props.filterType, filterOrder: this.props.filterOrder, });   
+        this.setState({ filterType: this.props.filterType, filterOrder: this.props.filterOrder });   
         this.setState({ loading: false, initialSearch: true });
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.searchTerm !== this.state.searchTerm) {
-            this.setState({ initialSearch: false, searchTerm: nextProps.searchTerm, loading: true, repos: [] });   
+            this.setState({ initialSearch: false, searchTerm: nextProps.searchTerm, loading: true, currentPage: 1, repos: [] });
             this.performSearch(nextProps.searchTerm, this.state.filterType, this.state.filterOrder, this.state.currentPage);
         }
 
@@ -106,8 +104,8 @@ export default class RepoList extends Component {
                     }
 
                     {this.state.repoTotalCount > 20 &&
-                        <Pagination currentPage={this.handlePagination} perPage={this.state.perPage} />
-                    }
+                        <Pagination totalItems={this.state.repoTotalCount} currentPage={this.handlePagination} perPage={this.state.perPage} />
+                    } 
 
                 </div>
             </div>
